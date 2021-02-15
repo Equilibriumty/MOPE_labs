@@ -38,6 +38,15 @@ xn_matrix = np.array([xn1, xn2, xn3])
 # calculating Yet
 Yet = a0 + (a1 * x01) + (a2 * x02) + (a3 * x03)
 
+
+def findClosestToYet(yet, array):
+    current = array[0]
+    for i in range(len(array)):
+        if abs(yet - array[i]) < abs(yet - current):
+            current = array[i]
+    return current
+
+
 print("X1 X2 X3")
 print(x_matrix.transpose())
 print("Y: ", Y)
@@ -47,3 +56,4 @@ print("Xn1, Xn2, xn3:")
 print(xn_matrix.transpose())
 print("Yет:", Yet)
 print("max(Y): ", Y_max)
+print("Найближче до Yet:", findClosestToYet(Yet, Y))
