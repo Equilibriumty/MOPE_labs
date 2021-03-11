@@ -21,6 +21,9 @@ public class Main {
                         m[0][2] * m[1][0] * m[2][1] * m[3][3] - m[0][0] * m[1][2] * m[2][1] * m[3][3] -
                         m[0][1] * m[1][0] * m[2][2] * m[3][3] + m[0][0] * m[1][1] * m[2][2] * m[3][3];
     }
+    public static double absMine(double num) {
+        return (num < 0) ? -num : num;
+    }
 
     public static void main(String[] args) {
 
@@ -195,13 +198,13 @@ public class Main {
             System.out.printf("y = %.2f", bArr[0]);
             if (bArr[1] < 0) System.out.print(" - ");
             else System.out.print(" + ");
-            System.out.printf("%.2f * x1", Math.abs(bArr[1]));
+            System.out.printf("%.2f * x1", absMine(bArr[1]));
             if (bArr[2] < 0) System.out.print(" - ");
             else System.out.print(" + ");
-            System.out.printf("%.2f * x2", Math.abs(bArr[2]));
+            System.out.printf("%.2f * x2", absMine(bArr[2]));
             if (bArr[3] < 0) System.out.print(" - ");
             else System.out.print(" + ");
-            System.out.printf("%.2f * x3\n", Math.abs(bArr[3]));
+            System.out.printf("%.2f * x3\n", absMine(bArr[3]));
 
             System.out.println("\nПеревірка: ");
             boolean ok = false;
@@ -230,13 +233,13 @@ public class Main {
             System.out.printf("y = %.2f", aNorm[0]);
             if (aNorm[1] < 0) System.out.print(" - ");
             else System.out.print(" + ");
-            System.out.printf("%.2f * x1", Math.abs(aNorm[1]));
+            System.out.printf("%.2f * x1", absMine(aNorm[1]));
             if (aNorm[2] < 0) System.out.print(" - ");
             else System.out.print(" + ");
-            System.out.printf("%.2f * x2", Math.abs(aNorm[2]));
+            System.out.printf("%.2f * x2", absMine(aNorm[2]));
             if (aNorm[3] < 0) System.out.print(" - ");
             else System.out.print(" + ");
-            System.out.printf("%.2f * x3\n", Math.abs(aNorm[3]));
+            System.out.printf("%.2f * x3\n", absMine(aNorm[3]));
 
 
             System.out.println("\nПеревірка: ");
@@ -332,7 +335,7 @@ public class Main {
         double[] t = new double[4];
 
         for (int i = 0; i < 4; i++) {
-            t[i] = Math.abs(beta[i])/sBetaS;
+            t[i] = absMine(beta[i])/sBetaS;
         }
 
         int f3 = f1*f2;
@@ -351,13 +354,13 @@ public class Main {
         System.out.printf("y = %.2f", bArr[0]);
         if (bArr[1] < 0) System.out.print(" - ");
         else System.out.print(" + ");
-        System.out.printf("%.2f * x1", Math.abs(bArr[1]));
+        System.out.printf("%.2f * x1", absMine(bArr[1]));
         if (bArr[2] < 0) System.out.print(" - ");
         else System.out.print(" + ");
-        System.out.printf("%.2f * x2", Math.abs(bArr[2]));
+        System.out.printf("%.2f * x2", absMine(bArr[2]));
         if (bArr[3] < 0) System.out.print(" - ");
         else System.out.print(" + ");
-        System.out.printf("%.2f * x3\n", Math.abs(bArr[3]));
+        System.out.printf("%.2f * x3\n", absMine(bArr[3]));
 
         double[] yAverageAfterStudent = new double[4];
 
