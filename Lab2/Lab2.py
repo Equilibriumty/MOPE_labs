@@ -56,8 +56,8 @@ class Experiment:
         self.y_var = np.var(self.y_matrix, axis=1)
         self.sigma = np.sqrt((2 * (2 * self.m - 2)) / (self.m * (self.m - 4)))
 
-        if not self.check_r():  # К-сть експерементів збільшуємо лише тоді, коли дисперсія неоднорідна
-            print(f'\n Дисперсія неоднорідна, змінимо m={self.m} на m={self.m+1}\n') # при однорідній залишаємо все як є
+        if not self.check_r():
+            print(f'\n Дисперсія неоднорідна, змінимо m={self.m} на m={self.m+1}\n')
             self.m += 1
             self.experiment()
 
@@ -134,3 +134,5 @@ if __name__ == '__main__':
     y_min_max = [((20 - variant) * 10), ((30 - variant) * 10)]
     experiment = Experiment(x1_min_max, x2_min_max, y_min_max, m)
     experiment.check_results()
+
+print("log")
