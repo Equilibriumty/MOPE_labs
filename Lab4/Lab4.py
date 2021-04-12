@@ -140,7 +140,7 @@ def check(X: list, Y: np.ndarray, B: list, n: int, m: int, is_Normalized=False):
 
     y_new = []
     for j in range(n):
-        y_new.append(calc_dispersion([X[j][i] for i in range(len(ts)) if ts[i] in res], final_k))
+        y_new.append(calc_regression([X[j][i] for i in range(len(ts)) if ts[i] in res], final_k))
 
     print(f'\nЗначення "y" з коефіцієнтами {final_k}')
     print(y_new)
@@ -167,14 +167,13 @@ def check(X: list, Y: np.ndarray, B: list, n: int, m: int, is_Normalized=False):
         return False
 
 
-def with_interaction_effect(n: int, m: int):
+def with_interaction_effect(n: int, m: int, i=[0]):
     X, Y, X_normalized = planning_matrix_interaction(n, m)
-
     y_aver = [round(sum(i) / len(i), 3) for i in Y]
-
-    B_normalized = find_coefficient(X_normalized, y_aver, norm=True)
-
-    return check(X_normalized, Y, B_normalized, n, m, norm=True)
+    B_normalized = find_coefficient(X_normalized, y_aver)
+    i[0] += 1
+    print(i[0])
+    return check(X_normalized, Y, B_normalized, n, m),
 
 
 def planning_matrix_linear(n, m, range_x):
@@ -308,8 +307,10 @@ def main(n: int, m: int):
             main(n, m)
 
 
+
 if __name__ == '__main__':
     range_x = ((-25, 5), (10, 60), (-5, 60))
     y_max = 200 + int(sum([x[1] for x in range_x]) / 3)
     y_min = 200 + int(sum([x[0] for x in range_x]) / 3)
-    main(8, 3)
+    for _ in range(100):
+        main(8, 3)
