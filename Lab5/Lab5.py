@@ -10,7 +10,8 @@ def regression(x, b):
     return y
 
 
-x_range = ((-9, 9), (-9, 7), (-1, 7))
+# Варіант 311
+x_range = ((-7, 1), (-4, 8), (-1, 3))
 
 x_aver_max = sum([x[1] for x in x_range]) / 3
 x_aver_min = sum([x[0] for x in x_range]) / 3
