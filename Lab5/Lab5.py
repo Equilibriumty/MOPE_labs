@@ -40,7 +40,7 @@ def plan_matrix5(n, m):
         no = n - 14
     else:
         no = 1
-    x_norm = ccdesign(3, center=(0, no))
+    x_norm = ccdesign(3, center=(0, no)) # У данному випадку був використаний пакет pyDOE2, а саме метод ccdesign для отримання матриці ЦКП.
     x_norm = np.insert(x_norm, 0, 1, axis=1)
 
     for i in range(4, 11):
