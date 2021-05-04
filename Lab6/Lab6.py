@@ -1,4 +1,6 @@
 from math import fabs, sqrt
+from time import time
+
 m = 2
 p = 0.95
 N = 15
@@ -24,7 +26,19 @@ q = None
 f3 = None
 
 
+def timer_func(func):
+    def wrap_func(*args, **kwargs):
+        t1 = time()
+        result = func(*args, **kwargs)
+        t2 = time()
+        print(f'Метод {func.__name__!r} виконався за {(t2 - t1):.7f}s')
+        return result
+
+    return wrap_func
+
+
 class Perevirku:
+    @timer_func
     def get_cohren_value(size_of_selections, qty_of_selections, significance):
         from _pydecimal import Decimal
         from scipy.stats import f
@@ -35,11 +49,13 @@ class Perevirku:
         result = fisher / (fisher + (size_of_selections - 1 - 1))
         return Decimal(result).quantize(Decimal('.0001')).__float__()
 
+    @timer_func
     def get_student_value(f3, significance):
         from _pydecimal import Decimal
         from scipy.stats import t
         return Decimal(abs(t.ppf(significance / 2, f3))).quantize(Decimal('.0001')).__float__()
 
+    @timer_func
     def get_fisher_value(f3, f4, significance):
         from _pydecimal import Decimal
         from scipy.stats import f
@@ -159,6 +175,7 @@ for i in range(len(matrix_x)):
         x_1, x_2, x_3 = x_lst
     matrix_x[i] = [x_1, x_2, x_3, x_1 * x_2, x_1 * x_3, x_2 * x_3, x_1 * x_2 * x_3, x_1 ** 2, x_2 ** 2, x_3 ** 2]
 
+
 def run_experiment():
     adekvat = False
     odnorid = False
@@ -190,16 +207,18 @@ def run_experiment():
             [mx_i[6], a(7, 1), a(7, 2), a(7, 3), a(7, 4), a(7, 5), a(7, 6), a(7, 7), a(7, 8), a(7, 9), a(7, 10)],
             [mx_i[7], a(8, 1), a(8, 2), a(8, 3), a(8, 4), a(8, 5), a(8, 6), a(8, 7), a(8, 8), a(8, 9), a(8, 10)],
             [mx_i[8], a(9, 1), a(9, 2), a(9, 3), a(9, 4), a(9, 5), a(9, 6), a(9, 7), a(9, 8), a(9, 9), a(9, 10)],
-            [mx_i[9], a(10, 1), a(10, 2), a(10, 3), a(10, 4), a(10, 5), a(10, 6), a(10, 7), a(10, 8), a(10, 9), a(10, 10)]
+            [mx_i[9], a(10, 1), a(10, 2), a(10, 3), a(10, 4), a(10, 5), a(10, 6), a(10, 7), a(10, 8), a(10, 9),
+             a(10, 10)]
         ]
         known = [my, find_known(1), find_known(2), find_known(3), find_known(4), find_known(5), find_known(6),
-                 find_known(7),  find_known(8), find_known(9), find_known(10)]
+                 find_known(7), find_known(8), find_known(9), find_known(10)]
 
         beta = solve(unknown, known)
         print("Отримане рівняння регресії")
         print("{:.3f} + {:.3f} * X1 + {:.3f} * X2 + {:.3f} * X3 + {:.3f} * Х1X2 + {:.3f} * Х1X3 + {:.3f} * Х2X3"
               "+ {:.3f} * Х1Х2X3 + {:.3f} * X11^2 + {:.3f} * X22^2 + {:.3f} * X33^2 = ŷ\n\tПеревірка"
-              .format(beta[0], beta[1], beta[2], beta[3], beta[4], beta[5], beta[6], beta[7], beta[8], beta[9], beta[10]))
+              .format(beta[0], beta[1], beta[2], beta[3], beta[4], beta[5], beta[6], beta[7], beta[8], beta[9],
+                      beta[10]))
         for i in range(N):
             print("ŷ{} = {:.3f} ≈ {:.3f}".format((i + 1), check_result(beta, i), average_y[i]))
 
